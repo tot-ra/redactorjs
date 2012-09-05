@@ -330,7 +330,11 @@ var RTOOLBAR = {};
 		setDoc: function(html)
 		{		
 	    	var frameHtml = '<!DOCTYPE html>\n';
-			frameHtml += '<html><head><link media="all" type="text/css" href="' + this.opts.path + '/css/' + this.opts.css + '" rel="stylesheet"></head>';
+			frameHtml += '<html><head>';
+			if(this.opts.css!=''){
+				frameHtml += '<link media="all" type="text/css" href="' + this.opts.css + '" rel="stylesheet">';
+			}
+			frameHtml += '</head>';
 			frameHtml += '<body><div id="page" contenteditable="true">';
 			frameHtml += html;
 			frameHtml += '</div></body></html>';
