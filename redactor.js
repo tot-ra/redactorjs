@@ -209,6 +209,7 @@ var RTOOLBAR = {};
 			}, this));
 
 			var postUploadHandler = this;
+
 			$(this.doc).upload5({
 				beforeLoad: function () {
 					this.gate = file_upload_url + '?returnHTML=1&parentID=' + Content.page.ID;
@@ -244,6 +245,60 @@ var RTOOLBAR = {};
 				}
 			});
 
+
+			$(this.doc).bind("paste", function (e) {
+				var event = e.originalEvent;
+				var items = event.clipboardData.items;
+				console.log(JSON.stringify(items)); // will give you the mime types
+				var blob = items[0].getAsFile();
+				var reader = new FileReader();
+				reader.onload = function (event) {
+					console.log(event.target.result)
+				}; // data url!
+				reader.readAsDataURL(blob);
+			});
+/*
+			$(this.doc).bind("paste", function (e) {
+				var items = e.originalEvent.clipboardData.items
+				//console.log(e.originalEvent.clipboardData.getData('text/uri-list'));
+				console.log(e.originalEvent.clipboardData.items.item(0).getAsFile());
+				for (var i = 0; i < items.length; i++) {
+					if (items[i].kind == "file" && items[i].type == "image/png") {
+						// get the blob
+						var imageFile = items[i].getAsFile();
+
+						// read the blob as a data URL
+						var fileReader = new FileReader();
+						fileReader.onloadend = function (e) {
+							// create an image
+							var image = document.createElement("IMG");
+							image.src = this.result;
+
+							// insert the image
+							var range = window.getSelection().getRangeAt(0);
+							range.insertNode(image);
+							range.collapse(false);
+
+							// set the selection to after the image
+							var selection = window.getSelection();
+							selection.removeAllRanges();
+							selection.addRange(range);
+						};
+
+						// TODO: Error Handling!
+						// fileReader.onerror = ...
+
+						fileReader.readAsDataURL(imageFile);
+
+						// prevent the default paste action
+						e.preventDefault();
+
+						// only paste 1 image at a time
+						break;
+					}
+				}
+			});
+*/
 			// toolbar
 			this.buildToolbar();
 
@@ -1177,10 +1232,7 @@ var RTOOLBAR = {};
 			var min_w = 1;
 			var min_h = 1;
 
-			$(resize).hover(function () {
-				$(resize).css('cursor', 'nw-resize');
-			}, function () {
-				$(resize).css('cursor', 'default');
+			$(resize).hover(function () {}, function () {
 				clicked = false;
 			});
 
