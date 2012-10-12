@@ -212,15 +212,8 @@ var RTOOLBAR = {};
 
 			$(this.doc).upload5({
 				beforeLoad: function () {
-					this.gate = file_upload_url + '?returnHTML=1&parentID=' + Content.page.ID;
+					this.gate = file_upload_url + '?returnHTML=1&float_position=inline&parentID=' + Content.page.ID;
 					this.can_proceed = true;
-					/*
-					 if(Content.openMenu=='dashboard'){
-					 this.can_proceed=true;
-					 }
-					 else this.can_proceed=false;
-					 */
-
 				},
 
 				onProgress: function (event) {
@@ -233,13 +226,8 @@ var RTOOLBAR = {};
 				},
 
 				onComplete: function (event, txt) {
-					/* If we got an error display it. */
-
-
 					Content.notePanel.set(t('Upload complete'), 'success', 10);
-
 					MenuTree.Load(MenuTree.getParentID(Content.page.ID));
-
 					postUploadHandler.insertHtml(txt);
 
 				}
