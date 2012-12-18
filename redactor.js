@@ -746,7 +746,8 @@ var RTOOLBAR = {};
 
 			html = html.replace(/\<font([\w\W]*?)color="(.*?)">([\w\W]*?)\<\/font\>/gi, '<span style="color: $2;">$3</span>');
 			html = html.replace(/\<font([\w\W]*?)>([\w\W]*?)\<\/font\>/gi, "<span$1>$2</span>");
-			html = html.replace(/\<p><span(.*?)>([\w\W]*?)<\/span><\/p>/gi, "<p$1>$2</p>");
+			html = html.replace(/\<p><span>([\w\W]*?)<\/span><\/p>/gi, "<p>$1</p>");
+			//html = html.replace(/\<p><span(.*?)>([\w\W]*?)<\/span><\/p>/gi, "<p$1>$2</p>");
 			html = html.replace(/<span>([\w\W]*?)<\/span>/gi, '$1');
 
 			// mini clean
